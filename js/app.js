@@ -43,35 +43,65 @@ const fullDetails = (id) => {
 };
 // Full details
 const displayDetails = (details) => {
-	console.log(details);
+	// console.log(details);
 	const fullView = document.getElementById('full-details');
 	const div = document.createElement('div');
 	div.innerHTML = `
        <div class="card mb-3">
 			<div class="row g-0">
-			    <div class="col-lg-4">
-					<img class="mx-5 my-3" src="${details.image}" class="img-fluid rounded-start" />
+			    <div class="col-lg-6">
+					<img class="mx-5 mt-5 w-75" src="${
+						details.image
+					}" class="img-fluid rounded-start" />
 				</div>
-					    <div class="col-lg-8">
+					    <div class="col-lg-6">
 						    <div class="card-body">
 							    <h5 class="card-title">${details.name}</h5>
-							    <p class="card-text">${details.releaseDate}</p>
-							    <p class="card-text">
+							    <p class="card-text">${
+										details.releaseDate
+											? details.releaseDate
+											: 'No release date Found'
+									}</p>
+							    <p class="card-text"><strong>Main Features</strong></p>
+							    <p class="card-text">Storage: 
 								${details.mainFeatures.storage}
 							    </p>
-							    <p class="card-text">
+							    <p class="card-text">Display Size: 
 								${details.mainFeatures.displaySize}
 							    </p>
-							    <p class="card-text">
+							    <p class="card-text">ChipSet:
 								${details.mainFeatures.chipSet}
 							    </p>
-							    <p class="card-text">
+							    <p class="card-text">Memory: 
 								${details.mainFeatures.memory}
 							    </p>
 					        </div>
-		                </div>
-		    </div>
-	</div>
+                        <div class="card text-dark bg-warning mb-3" >
+                        <div class="card-header">Sensors</div>
+                            <div class="card-body">
+                                <p class="card-text">${
+																	details.mainFeatures.sensors
+																}</p>
+                            </div>
+                            </div>
+                            <div class="card text-dark bg-info mb-3">
+                            <div class="card-header">Others</div>
+                            <div class="card-body">
+                            <p class="card-text">WLAN: ${
+															details.others.WLAN
+														}</p>
+                            <p class="card-text">Bluetooth: ${
+															details.others.Bluetooth
+														}</p>
+                            <p class="card-text">GPS: ${details.others.GPS}</p>
+                            <p class="card-text">NFC: ${details.others.NFC}</p>
+                            <p class="card-text">USB: ${details.others.USB}</p>
+                            </div>
+                            </div>
+                        </div>
+                            
+		        </div>
+	            </div>
     `;
 	fullView.appendChild(div);
 };
