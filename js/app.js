@@ -47,17 +47,31 @@ const displayDetails = (details) => {
 	const fullView = document.getElementById('full-details');
 	const div = document.createElement('div');
 	div.innerHTML = `
-    <div class="card">
-				<div class="col-6">
-                <img class="mx-5 my-3" src="${details.image}" class="card-img-top" />
-                </div>
-				<div class="card-body col-6">
-					<h5 class="card-title">${details.name}</h5>
-					<p class="card-text">${details.releaseDate}</p>
-					<p class="card-text">${details.mainFeatures.storage}</p>
-					<p class="card-text">${details.mainFeatures.displaySize}</p>
+       <div class="card mb-3">
+			<div class="row g-0">
+			    <div class="col-lg-4">
+					<img class="mx-5 my-3" src="${details.image}" class="img-fluid rounded-start" />
 				</div>
-			</div>
+					    <div class="col-lg-8">
+						    <div class="card-body">
+							    <h5 class="card-title">${details.name}</h5>
+							    <p class="card-text">${details.releaseDate}</p>
+							    <p class="card-text">
+								${details.mainFeatures.storage}
+							    </p>
+							    <p class="card-text">
+								${details.mainFeatures.displaySize}
+							    </p>
+							    <p class="card-text">
+								${details.mainFeatures.chipSet}
+							    </p>
+							    <p class="card-text">
+								${details.mainFeatures.memory}
+							    </p>
+					        </div>
+		                </div>
+		    </div>
+	</div>
     `;
 	fullView.appendChild(div);
 };
