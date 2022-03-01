@@ -1,11 +1,19 @@
 phoneSearch = () => {
 	const inputText = document.getElementById('input-value');
 	const searchText = inputText.value;
-	// console.log(searchText);
+
+	/*----------------------------
+		If search box is empty
+		------------------------------*/
 	if (searchText === '') {
-		document.getElementById('alert').style.display = 'block';
+		closeAlert('block');
+		document.getElementById('phone-search').textContent = '';
+		document.getElementById('full-details').textContent = '';
 	} else {
-		// API Fetch via Link
+		/*----------------------------
+		API Fetch via Link
+		------------------------------*/
+		toggleSpinner('block');
 		const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
 		fetch(url)
 			.then((response) => response.json())
@@ -15,21 +23,33 @@ phoneSearch = () => {
 		result.textContent = '';
 		const viewDetails = document.getElementById('full-details');
 		viewDetails.textContent = '';
+		closeAlert('none');
 	}
 };
-const closeAlert = () => {
-	document.getElementById('alert').style.display = 'none';
+/*----------------------------
+Search error box close
+------------------------------*/
+const closeAlert = (displayStyle) => {
+	document.getElementById('alert').style.display = displayStyle;
 };
+const toggleSpinner = (spin) => {
+	document.getElementById('spinner').style.display = spin;
+};
+/*----------------------------
+if Search Input is not found Error handle
+------------------------------*/
 const displayPhone = (phones) => {
 	if (!phones.length) {
-		document.getElementById('alert').style.display = 'block';
+		closeAlert('block');
 	}
 
 	phones.forEach((phone) => {
-		// console.log(phone);
 		const phoneSearch = document.getElementById('phone-search');
 		const div = document.createElement('div');
 		div.className = 'col g-5';
+		/*----------------------------
+		Card details in Html 
+		------------------------------*/
 		div.innerHTML = `
         <div class="card">
 				<img class="mx-5 my-3" src="${phone.image}" class="card-img-top" />
@@ -43,9 +63,13 @@ const displayPhone = (phones) => {
         `;
 		phoneSearch.appendChild(div);
 	});
+	toggleSpinner('none');
 };
-// Full details OnClick
+/*----------------------------
+Full details function
+------------------------------*/
 const fullDetails = (id) => {
+	toggleSpinner('block');
 	console.log(id);
 	const url = `https://openapi.programming-hero.com/api/phone/${id}`;
 	fetch(url)
@@ -54,9 +78,10 @@ const fullDetails = (id) => {
 	const detailsField = document.getElementById('full-details');
 	detailsField.innerHTML = '';
 };
-// Full details
+/*----------------------------------
+Full details Display on Single Card
+------------------------------------*/
 const displayDetails = (details) => {
-	// console.log(details);
 	const fullView = document.getElementById('full-details');
 	const div = document.createElement('div');
 	div.innerHTML = `
@@ -67,60 +92,36 @@ const displayDetails = (details) => {
 						details.image
 					}" class="img-fluid rounded-start" />
 				</div>
-					    <div class="col-lg-6">
-						    <div class="card-body">
+					    <div class="col-lg-6 ">
+						    <div class="card-body bg-green">
 							    <h3 class="card-title text-center">${details.name}</h3>
 							    <p class="card-text text-center">${
 										details.releaseDate
 											? details.releaseDate
 											: 'No Release Date Found'
 									}</p>
-							    <p class="card-text"><strong>Main Features</strong></p>
-							    <p class="card-text">Storage: 
-								${details.mainFeatures.storage}
-							    </p>
-							    <p class="card-text">Display Size: 
-								${details.mainFeatures.displaySize}
-							    </p>
-							    <p class="card-text">ChipSet:
-								${details.mainFeatures.chipSet}
-							    </p>
-							    <p class="card-text">Memory: 
-								${details.mainFeatures.memory}
-							    </p>
-					        </div>
-                        <div class="card text-dark bg-warning mb-3" >
-                        <div class="card-header">Sensors</div>
-                            <div class="card-body">
-                                <p class="card-text">${
-																	details.mainFeatures.sensors
-																}</p>
+							    <p><strong>Main Features</strong></p>
+							    <p>Storage: ${details.mainFeatures.storage}</p>
+							    <p>Display Size: ${details.mainFeatures.displaySize}</p>
+							    <p>ChipSet: ${details.mainFeatures.chipSet}</p>
+							    <p>Memory: ${details.mainFeatures.memory}</p>
+					       
+                       
+                        	<p><strong>Sensors:</strong></p>
+							<p>${details.mainFeatures.sensors}</p>
+                            <p><strong>Others</strong></p>
+                            <p>WLAN: ${details?.others?.WLAN}</p>
+                            <p>Bluetooth: ${details?.others?.Bluetooth}</p>
+                            <p>GPS: ${details?.others?.GPS}</p>
+                            <p>NFC: ${details?.others?.NFC}</p>
+                            <p>USB: ${details?.others?.USB}</p>
                             </div>
-                            </div>
-                            <div class="card text-dark bg-info mb-3">
-                            <div class="card-header">Others</div>
-                            <div class="card-body">
-                            <p class="card-text">WLAN: ${
-															details?.others?.WLAN
-														}</p>
-                            <p class="card-text">Bluetooth: ${
-															details?.others?.Bluetooth
-														}</p>
-                            <p class="card-text">GPS: ${
-															details?.others?.GPS
-														}</p>
-                            <p class="card-text">NFC: ${
-															details?.others?.NFC
-														}</p>
-                            <p class="card-text">USB: ${
-															details?.others?.USB
-														}</p>
-                            </div>
-                            </div>
-                        </div>
+							 </div>
+                        
                             
 		        </div>
 	            </div>
     `;
 	fullView.appendChild(div);
+	toggleSpinner('none');
 };
