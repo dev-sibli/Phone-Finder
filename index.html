@@ -28,7 +28,7 @@
 	<body>
 		<section class="container mt-3 g-5 mx-auto">
 			<h1 class="text-center">Phone Finder</h1>
-			<div class="input-group my-3 w-50 mx-auto">
+			<div class="input-group my-3 w-75 mx-auto">
 				<!-- Search Input Box -->
 				<input
 					class="form-control"
@@ -43,15 +43,19 @@
 			</div>
 			<!-- Loading Spinner  -->
 			<div class="d-flex justify-content-center">
-				<div id="spinner" class="spinner-border" role="status"></div>
+				<div
+					id="spinner"
+					class="spinner-border text-primary"
+					role="status"
+				></div>
 			</div>
 			<!-- Error Alert -->
 			<div
 				id="alert"
-				class="alert alert-warning alert-dismissible fade show w-50 mx-auto"
+				class="alert alert-warning alert-dismissible fade show w-75 mx-auto"
 				role="alert"
 			>
-				<strong>Oops!</strong> Something went wrong. Please try again later.
+				<strong>Oops!</strong> Something went wrong. Please try again.
 				<button onclick="closeAlert()" type="button" class="btn-close"></button>
 			</div>
 			<!-- Display Details -->
