@@ -11,38 +11,55 @@
 			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 			crossorigin="anonymous"
 		/>
-		<link rel="stylesheet" href="/css/style.css" />
+		<!-- Custom CSS Styles -->
+		<style>
+			#alert {
+				display: none;
+			}
+			#spinner {
+				display: none;
+			}
+			body {
+				background: #f4f7fd;
+				margin-top: 20px;
+			}
+		</style>
 	</head>
 	<body>
-		<section class="container mt-3">
+		<section class="container mt-3 g-5 mx-auto">
 			<h1 class="text-center">Phone Finder</h1>
-			<div class="input-group mb-3 w-100 mx-auto">
+			<div class="input-group my-3 w-50 mx-auto">
+				<!-- Search Input Box -->
 				<input
 					class="form-control"
 					id="input-value"
 					type="text"
 					placeholder="Khoj the Search"
 				/>
+				<!-- Search button -->
 				<button onclick="phoneSearch()" class="btn btn-primary" type="button">
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</button>
 			</div>
+			<!-- Loading Spinner  -->
 			<div class="d-flex justify-content-center">
-				<div id="spinner" class="spinner-border" role="status">
-					<span class="visually-hidden">Loading...</span>
-				</div>
+				<div id="spinner" class="spinner-border" role="status"></div>
 			</div>
+			<!-- Error Alert -->
 			<div
 				id="alert"
-				class="alert alert-warning alert-dismissible fade show"
+				class="alert alert-warning alert-dismissible fade show w-50 mx-auto"
 				role="alert"
 			>
-				<strong>Holy F!</strong> Something bad happened
+				<strong>Oops!</strong> Something went wrong. Please try again later.
 				<button onclick="closeAlert()" type="button" class="btn-close"></button>
 			</div>
+			<!-- Display Details -->
 			<div id="full-details"></div>
+			<!-- Display Phones -->
 			<div class="row row-cols-lg-3 row-cols-Sm-1" id="phone-search"></div>
 		</section>
+		<!-- Javascript Script -->
 		<script src="/js/app.js"></script>
 		<script
 			src="https://kit.fontawesome.com/991811b141.js"

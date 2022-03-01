@@ -1,12 +1,14 @@
+/*--------------------------------
+		Search box click handler
+		------------------------------*/
 phoneSearch = () => {
 	const inputText = document.getElementById('input-value');
 	const searchText = inputText.value;
-
-	/*----------------------------
-		If search box is empty
+	/*--------------------------------
+		search box empty error handle
 		------------------------------*/
 	if (searchText === '') {
-		closeAlert('block');
+		toggleAlert('block');
 		document.getElementById('phone-search').textContent = '';
 		document.getElementById('full-details').textContent = '';
 	} else {
@@ -23,14 +25,17 @@ phoneSearch = () => {
 		result.textContent = '';
 		const viewDetails = document.getElementById('full-details');
 		viewDetails.textContent = '';
-		closeAlert('none');
+		toggleAlert('none');
 	}
 };
 /*----------------------------
-Search error box close
+Alert & Spinner 
 ------------------------------*/
-const closeAlert = (displayStyle) => {
+const toggleAlert = (displayStyle) => {
 	document.getElementById('alert').style.display = displayStyle;
+};
+const closeAlert = () => {
+	toggleAlert('none');
 };
 const toggleSpinner = (spin) => {
 	document.getElementById('spinner').style.display = spin;
@@ -40,18 +45,17 @@ if Search Input is not found Error handle
 ------------------------------*/
 const displayPhone = (phones) => {
 	if (!phones.length) {
-		closeAlert('block');
+		toggleAlert('block');
 	}
-
 	phones.forEach((phone) => {
 		const phoneSearch = document.getElementById('phone-search');
 		const div = document.createElement('div');
-		div.className = 'col g-5';
+		div.className = 'col g-4';
 		/*----------------------------
 		Card details in Html 
 		------------------------------*/
 		div.innerHTML = `
-        <div class="card">
+        	<div class="card shadow-sm">
 				<img class="mx-5 my-3" src="${phone.image}" class="card-img-top" />
                 <hr>
 				<div class="card-body">
@@ -70,7 +74,6 @@ Full details function
 ------------------------------*/
 const fullDetails = (id) => {
 	toggleSpinner('block');
-	console.log(id);
 	const url = `https://openapi.programming-hero.com/api/phone/${id}`;
 	fetch(url)
 		.then((response) => response.json())
@@ -92,15 +95,15 @@ const displayDetails = (details) => {
 						details.image
 					}" class="img-fluid rounded-start" />
 				</div>
-					    <div class="col-lg-6 ">
-						    <div class="card-body bg-green">
+					    <div class="col-lg-6">
+						    <div class="card-body">
 							    <h3 class="card-title text-center">${details.name}</h3>
-							    <p class="card-text text-center">${
+							    <p class="text-center">${
 										details.releaseDate
 											? details.releaseDate
 											: 'No Release Date Found'
 									}</p>
-							    <p><strong>Main Features</strong></p>
+							    <p><strong>Main Features:</strong></p>
 							    <p>Storage: ${details.mainFeatures.storage}</p>
 							    <p>Display Size: ${details.mainFeatures.displaySize}</p>
 							    <p>ChipSet: ${details.mainFeatures.chipSet}</p>
@@ -109,12 +112,26 @@ const displayDetails = (details) => {
                        
                         	<p><strong>Sensors:</strong></p>
 							<p>${details.mainFeatures.sensors}</p>
-                            <p><strong>Others</strong></p>
-                            <p>WLAN: ${details?.others?.WLAN}</p>
-                            <p>Bluetooth: ${details?.others?.Bluetooth}</p>
-                            <p>GPS: ${details?.others?.GPS}</p>
-                            <p>NFC: ${details?.others?.NFC}</p>
-                            <p>USB: ${details?.others?.USB}</p>
+                            <p><strong>Others:</strong></p>
+                            <p>WLAN: ${
+															details?.others?.WLAN
+																? details.others.WLAN
+																: 'Not Found'
+														}</p>
+                            <p>Bluetooth: ${
+															details?.others?.Bluetooth
+																? details.others.Bluetooth
+																: 'Not Found'
+														}</p>
+            	<p>GPS: ${
+								details?.others?.GPS ? details.others.GPS : 'Not Found'
+							}</p>
+                <p>NFC: ${
+									details?.others?.NFC ? details.others.NFC : 'Not Found'
+								}</p>
+                <p>USB: ${
+									details?.others?.USB ? details.others.USB : 'Not Found'
+								}</p>
                             </div>
 							 </div>
                         
