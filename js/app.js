@@ -2,15 +2,22 @@ phoneSearch = () => {
 	const inputText = document.getElementById('input-value');
 	const searchText = inputText.value;
 	// console.log(searchText);
-	// API Fetch via Link
-	const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
-	fetch(url)
-		.then((response) => response.json())
-		.then((data) => displayPhone(data.data));
-	inputText.value = '';
-	const result = document.getElementById('phone-search');
-	result.textContent = '';
+	if (searchText === '') {
+		alert('Please enter');
+	} else {
+		// API Fetch via Link
+		const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+		fetch(url)
+			.then((response) => response.json())
+			.then((data) => displayPhone(data.data));
+		inputText.value = '';
+		const result = document.getElementById('phone-search');
+		result.textContent = '';
+		const viewDetails = document.getElementById('full-details');
+		viewDetails.textContent = '';
+	}
 };
+document.getElementById('spinner').style.display = 'none';
 const displayPhone = (phone) => {
 	phone.forEach((phone) => {
 		// console.log(phone);
@@ -47,20 +54,20 @@ const displayDetails = (details) => {
 	const fullView = document.getElementById('full-details');
 	const div = document.createElement('div');
 	div.innerHTML = `
-       <div class="card mb-3">
+       <div class="card mb-3 container">
 			<div class="row g-0">
 			    <div class="col-lg-6">
-					<img class="mx-5 mt-5 w-75" src="${
+					<img class="mx-5 my-5 w-75" src="${
 						details.image
 					}" class="img-fluid rounded-start" />
 				</div>
 					    <div class="col-lg-6">
 						    <div class="card-body">
-							    <h5 class="card-title">${details.name}</h5>
-							    <p class="card-text">${
+							    <h3 class="card-title text-center">${details.name}</h3>
+							    <p class="card-text text-center">${
 										details.releaseDate
 											? details.releaseDate
-											: 'No release date Found'
+											: 'No Release Date Found'
 									}</p>
 							    <p class="card-text"><strong>Main Features</strong></p>
 							    <p class="card-text">Storage: 
@@ -88,14 +95,20 @@ const displayDetails = (details) => {
                             <div class="card-header">Others</div>
                             <div class="card-body">
                             <p class="card-text">WLAN: ${
-															details.others.WLAN
+															details?.others?.WLAN
 														}</p>
                             <p class="card-text">Bluetooth: ${
-															details.others.Bluetooth
+															details?.others?.Bluetooth
 														}</p>
-                            <p class="card-text">GPS: ${details.others.GPS}</p>
-                            <p class="card-text">NFC: ${details.others.NFC}</p>
-                            <p class="card-text">USB: ${details.others.USB}</p>
+                            <p class="card-text">GPS: ${
+															details?.others?.GPS
+														}</p>
+                            <p class="card-text">NFC: ${
+															details?.others?.NFC
+														}</p>
+                            <p class="card-text">USB: ${
+															details?.others?.USB
+														}</p>
                             </div>
                             </div>
                         </div>
